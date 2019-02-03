@@ -5,7 +5,7 @@ var PingBlacklist = (() => {
         "name": "PingBlacklist",
         "authors": [
         {"name": "Joseph Pietrzyk"}], 
-        "version": "0.0.2", 
+        "version": "0.0.3", 
         "description": "Ignores pings from users on your blacklist.", 
         "github":"https://github.com/joepietrzyk/BetterDiscordPlugins", 
         "github_raw": "https://github.com/joepietrzyk/BetterDiscordPlugins/blob/master/PingBlacklist.plugin.js"}};
@@ -24,6 +24,10 @@ var PingBlacklist = (() => {
         const plugin = (Plugin, Api) => {
             const {Patcher, WebpackModules, DiscordModules, PluginUtilities} = Api;
             return class PingBlacklist extends Plugin {
+                /**
+                 * Initializes values used by the plugin.  Note: move all functional
+                 * initialization code to the initialize method
+                 */
                  constructor()
                  {
                     super();
@@ -31,7 +35,31 @@ var PingBlacklist = (() => {
                     this.defaultSettings = {
                         users: []
                     };
-                    // TODO:
+
+                    // classes used by Discord. Saved here for less copy/pasting
+                    let classesDefault = {
+                        item: "item-1Yvehc",
+                        label: "label-JWQiNe",
+                        itemToggle: "itemToggle-S7XGOQ"
+                    };
+                    // TODO: add functionality for Class Normalizer
+                    this.classes = classesDefault;
+                 }
+
+                 /**
+                  * This is called after Zeres library loads.
+                  * Use this method to perform any initialization that relies on
+                  * Zeres' library.
+                  */
+                 initialize()
+                 {
+                    if (this.intialized) return;
+                    this.initialized = true;
+                    // check for updates
+                    PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), config.github_raw);
+                    // load user settings
+                    this.settings = PluginUtilities.loadSettings(this.getName(), this.defaultSettings);
+
                  }
 
                  /**
@@ -39,14 +67,29 @@ var PingBlacklist = (() => {
                   */
                  onStart()
                  {
-                    // load the settings
-                    this.settings = PluginUtilities.loadSettings(this.getName(), this.defaultSettings);
+                    // Ensure the library loaded successfully
+                    // (https://github.com/planetarian/BetterDiscordPlugins/issues/2)
+                    this.initialized = false;
+                    if (global.ZeresPluginLibrary) this.initialize();
+                    else  libraryScript.addEventListener("load", () => { this.initialize(); });
+                    window.setTimeout(this.initialize.bind(this), 5000);
+                    
                  }
 
                  onStop() 
                  {
                     // this is a place holder, will be removed
                     PluginUtilities.saveSettings(this.getName(), this.settings);
+                 }
+
+
+                /**
+                 * Adds the right click functionality
+                 */
+                 observer()
+                 {
+                    // TODO
+                    let item = $(`<div class="${this.classes.item} ${this.classes.itemToggle} dc-inheritModeToggle"><div class="${this.classes.label}">Blacklist Pings</div>`);
                  }
 
                  getSettingsPanel()
