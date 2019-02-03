@@ -22,30 +22,44 @@ var PingBlacklist = (() => {
         stop() {}
     } : (([Plugin, Api]) => {
         const plugin = (Plugin, Api) => {
+            const {Patcher, WebpackModules, DiscordModules, PluginUtilities} = Api;
             return class PingBlacklist extends Plugin {
                  constructor()
                  {
                     super();
+                    // this is the settings that will be loaded the first time the app starts up
+                    this.defaultSettings = {
+                        users: []
+                    };
                     // TODO:
                  }
 
-                 /* Executes when the plugin is started up
-                  *
+                 /**
+                  * Executes when the plugin is started up
                   */
                  onStart()
                  {
-                    // this.settings = PluginUtilities.loadSettings();
+                    // load the settings
+                    this.settings = PluginUtilities.loadSettings(this.getName(), this.defaultSettings);
                  }
 
-                 onStop() {}
+                 onStop() 
+                 {
+                    // this is a place holder, will be removed
+                    PluginUtilities.saveSettings(this.getName(), this.settings);
+                 }
 
                  getSettingsPanel()
                  {
-                    var html = `
-                        <h2>PingBlacklist</h2>
-                        <p>Coming soon!</p>
-                    `;
-                    return html;
+                    var html = $("<h2>");
+                    html.html(this.getName());
+                    $("<p>").html("Blacklisted users:").appendTo(html);
+                    if (this.settings.users.length != 0) {
+                        this.settings.users.forEach((user) => {
+                            $("<p>").html(`${user}`).appendTo(html);
+                        });
+                    }
+                    return html[0];
                  }
             };
         };
