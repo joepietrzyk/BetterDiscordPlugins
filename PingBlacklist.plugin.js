@@ -40,7 +40,8 @@ var PingBlacklist = (() => {
                     let classesDefault = {
                         item: "item-1Yvehc",
                         label: "label-JWQiNe",
-                        itemToggle: "itemToggle-S7XGOQ"
+                        itemToggle: "itemToggle-S7XGOQ",
+                        contextMenu: "contextMenu-HLZMGh"
                     };
                     // TODO: add functionality for Class Normalizer
                     this.classes = classesDefault;
@@ -63,16 +64,25 @@ var PingBlacklist = (() => {
                  }
 
                  /**
+                  * Saves your settings after you've added or removed an entry
+                  */
+                 saveSettings()
+                 {
+                    PluginUtilities.saveSettings(this.getName(), this.settings);
+                 }
+
+                 /**
                   * Executes when the plugin is started up
                   */
                  onStart()
                  {
                     // Ensure the library loaded successfully
                     // (https://github.com/planetarian/BetterDiscordPlugins/issues/2)
+                    // modified from https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/BlurNSFW/BlurNSFW.plugin.js
                     this.initialized = false;
                     if (global.ZeresPluginLibrary) this.initialize();
-                    else  libraryScript.addEventListener("load", () => { this.initialize(); });
-                    window.setTimeout(this.initialize.bind(this), 5000);
+                    //else  libraryScript.addEventListener("load", () => { this.initialize(); });
+                    //window.setTimeout(this.initialize.bind(this), 5000);
                     
                  }
 
@@ -89,7 +99,9 @@ var PingBlacklist = (() => {
                  observer()
                  {
                     // TODO
-                    let item = $(`<div class="${this.classes.item} ${this.classes.itemToggle} dc-inheritModeToggle"><div class="${this.classes.label}">Blacklist Pings</div>`);
+                    let item = $(`<div class="${this.classes.item} ${this.classes.itemToggle}"><div class="${this.classes.label}">Blacklist Pings</div>`);
+                    window.BdApi.alert("Item", item);
+
                  }
 
                  getSettingsPanel()
