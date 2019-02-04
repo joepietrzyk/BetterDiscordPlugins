@@ -49,6 +49,7 @@ var PingBlacklist = (() => {
                         channelName: "name-889Nh",
                         channelNameUnreadText: "nameUnreadText-29Dwx",
                         contextMenu: "contextMenu-52DtW",
+                        item: "item-1Yvehc",
                         itemToggle: "itemToggle-cQu40"
                     };
 
