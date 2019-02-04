@@ -36,16 +36,43 @@ var PingBlacklist = (() => {
                         users: []
                     };
 
-                    // classes used by Discord. Saved here for less copy/pasting
-                    let classesDefault = {
-                        item: "item-1Yvehc",
-                        label: "label-JWQiNe",
-                        itemToggle: "itemToggle-S7XGOQ",
-                        contextMenu: "contextMenu-HLZMGh"
+                 
+                // uses random letters to not conflict with other plugins
+                    this.defaultClasses = {
+                        label: "label",
+                        guild: "guild",
+                        guildSelected: "guildSelected",
+                        chat: "chat",
+                        searchBar: "search-bar",
+                        search: "search",
+                        channels: "channels",
+                        channelName: "name",
+                        channelNameUnreadText: "nameUnreadText",
+                        contextMenu: "contextMenu",
+                        item: "item",
+                        itemToggle: "itemToggle"
                     };
-                    // TODO: add functionality for Class Normalizer
-                    this.classes = classesDefault;
-                 }
+
+
+                    // TODO: add support for normalized classes
+                    /*
+                    this.normalizedClasses = {
+                        label: "label",
+                        guild: "guild",
+                        guildSelected: "guildSelected",
+                        chat: "chat",
+                        searchBar: "search-bar",
+                        search: "search",
+                        channels: "channels",
+                        channelName: "name",
+                        channelNameUnreadText: "nameUnreadText",
+                        contextMenu: "contextMenu",
+                        item: "item",
+                        itemToggle: "itemToggle"
+                    };
+                    */
+                    this.classes = this.defaultClasses;
+                }
 
                  /**
                   * This is called after Zeres library loads.
@@ -99,8 +126,6 @@ var PingBlacklist = (() => {
                  observer()
                  {
                     // TODO
-                    let item = $(`<div class="${this.classes.item} ${this.classes.itemToggle}"><div class="${this.classes.label}">Blacklist Pings</div>`);
-                    window.BdApi.alert("Item", item);
 
                  }
 
