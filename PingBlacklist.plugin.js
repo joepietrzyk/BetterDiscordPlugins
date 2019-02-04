@@ -39,7 +39,7 @@ var PingBlacklist = (() => {
                  
                 // uses random letters to not conflict with other plugins
                     this.defaultClasses = {
-                        label: "label-U19Tf",
+                        label: "label-JWQiNe",
                         guild: "guild-fRO66",
                         guildSelected: "guildSelected-tnK51",
                         chat: "chat-gTg06",
@@ -49,7 +49,6 @@ var PingBlacklist = (() => {
                         channelName: "name-889Nh",
                         channelNameUnreadText: "nameUnreadText-29Dwx",
                         contextMenu: "contextMenu-52DtW",
-                        item: "item-aZ534",
                         itemToggle: "itemToggle-cQu40"
                     };
 
@@ -108,8 +107,8 @@ var PingBlacklist = (() => {
                     // modified from https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/BlurNSFW/BlurNSFW.plugin.js
                     this.initialized = false;
                     if (global.ZeresPluginLibrary) this.initialize();
-                    //else  libraryScript.addEventListener("load", () => { this.initialize(); });
-                    //window.setTimeout(this.initialize.bind(this), 5000);
+                    else  libraryScript.addEventListener("load", () => { this.initialize(); });
+                    window.setTimeout(this.initialize.bind(this), 5000);
                     
                  }
 
@@ -126,11 +125,12 @@ var PingBlacklist = (() => {
                  observer()
                  {
                     // TODO
-                    let item = $(`<div class="${this.classes.label}">Blacklist Pings</div>`);
                  }
 
                  getSettingsPanel()
                  {
+                    /*let library = document.getElementById('zeresLibraryScript');
+                    window.BdApi.alert("Test", JSON.stringify(library)); */
                     var html = $("<h2>");
                     html.html(this.getName());
                     $("<p>").html("Blacklisted users:").appendTo(html);
