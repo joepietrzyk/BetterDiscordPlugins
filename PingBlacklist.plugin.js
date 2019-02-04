@@ -39,18 +39,18 @@ var PingBlacklist = (() => {
                  
                 // uses random letters to not conflict with other plugins
                     this.defaultClasses = {
-                        label: "label",
-                        guild: "guild",
-                        guildSelected: "guildSelected",
-                        chat: "chat",
-                        searchBar: "search-bar",
-                        search: "search",
-                        channels: "channels",
-                        channelName: "name",
-                        channelNameUnreadText: "nameUnreadText",
-                        contextMenu: "contextMenu",
-                        item: "item",
-                        itemToggle: "itemToggle"
+                        label: "label-U19Tf",
+                        guild: "guild-fRO66",
+                        guildSelected: "guildSelected-tnK51",
+                        chat: "chat-gTg06",
+                        searchBar: "search-bar-c63T1",
+                        search: "search-91mAd",
+                        channels: "channels-p6PP3",
+                        channelName: "name-889Nh",
+                        channelNameUnreadText: "nameUnreadText-29Dwx",
+                        contextMenu: "contextMenu-52DtW",
+                        item: "item-aZ534",
+                        itemToggle: "itemToggle-cQu40"
                     };
 
 
@@ -126,7 +126,7 @@ var PingBlacklist = (() => {
                  observer()
                  {
                     // TODO
-
+                    let item = $(`<div class="${this.classes.label}">Blacklist Pings</div>`);
                  }
 
                  getSettingsPanel()
