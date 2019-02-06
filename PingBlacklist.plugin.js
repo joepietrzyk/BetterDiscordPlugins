@@ -33,45 +33,9 @@ var PingBlacklist = (() => {
                     super();
                     // this is the settings that will be loaded the first time the app starts up
                     this.defaultSettings = {
-                        users: []
+                        users: [],
+                        guilds: []
                     };
-
-                 
-                // uses random letters to not conflict with other plugins
-                    this.defaultClasses = {
-                        label: "label-JWQiNe",
-                        guild: "guild-fRO66",
-                        guildSelected: "guildSelected-tnK51",
-                        chat: "chat-gTg06",
-                        searchBar: "search-bar-c63T1",
-                        search: "search-91mAd",
-                        channels: "channels-p6PP3",
-                        channelName: "name-889Nh",
-                        channelNameUnreadText: "nameUnreadText-29Dwx",
-                        contextMenu: "contextMenu-52DtW",
-                        item: "item-1Yvehc",
-                        itemToggle: "itemToggle-cQu40"
-                    };
-
-
-                    // TODO: add support for normalized classes
-                    /*
-                    this.normalizedClasses = {
-                        label: "label",
-                        guild: "guild",
-                        guildSelected: "guildSelected",
-                        chat: "chat",
-                        searchBar: "search-bar",
-                        search: "search",
-                        channels: "channels",
-                        channelName: "name",
-                        channelNameUnreadText: "nameUnreadText",
-                        contextMenu: "contextMenu",
-                        item: "item",
-                        itemToggle: "itemToggle"
-                    };
-                    */
-                    this.classes = this.defaultClasses;
                 }
 
                  /**
@@ -83,11 +47,11 @@ var PingBlacklist = (() => {
                  {
                     if (this.intialized) return;
                     this.initialized = true;
-                    // check for updates
-                    PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), config.github_raw);
+                    // TODO: check for updates
                     // load user settings
                     this.settings = PluginUtilities.loadSettings(this.getName(), this.defaultSettings);
-
+                    this.contextMenuListener = this.onContextMenu.bind(this);
+                    document.addEventListener("contextmenu", this.contextMenuListener);
                  }
 
                  /**
@@ -103,35 +67,30 @@ var PingBlacklist = (() => {
                   */
                  onStart()
                  {
-                    // Ensure the library loaded successfully
-                    // (https://github.com/planetarian/BetterDiscordPlugins/issues/2)
-                    // modified from https://github.com/rauenzi/BetterDiscordAddons/blob/master/Plugins/BlurNSFW/BlurNSFW.plugin.js
+                    // Ensure Zeres Library is loaded correctly
                     this.initialized = false;
                     if (global.ZeresPluginLibrary) this.initialize();
-                    else  libraryScript.addEventListener("load", () => { this.initialize(); });
-                    window.setTimeout(this.initialize.bind(this), 5000);
-                    
+                    else  document.getElementById('zeresLibraryScript').addEventListener("load", () => { this.initialize(); });
                  }
 
                  onStop() 
                  {
                     // this is a place holder, will be removed
                     PluginUtilities.saveSettings(this.getName(), this.settings);
+                    document.removeEventListener("contextmenu", this.contextMenuListener);
                  }
 
 
                 /**
                  * Adds the right click functionality
                  */
-                 observer()
+                 onContextMenu()
                  {
-                    // TODO
+                    window.BdApi.showToast("Success!");
                  }
 
                  getSettingsPanel()
                  {
-                    /*let library = document.getElementById('zeresLibraryScript');
-                    window.BdApi.alert("Test", JSON.stringify(library)); */
                     var html = $("<h2>");
                     html.html(this.getName());
                     $("<p>").html("Blacklisted users:").appendTo(html);
