@@ -33,7 +33,11 @@ var PingBlacklist = (() => {
                     super();
                     // this is the settings that will be loaded the first time the app starts up
                     this.defaultSettings = {
-                        users: [],
+                        users: [{
+                        	userId: "",
+                        	userName: "",
+                        	dateAdded: ""
+                        }],
                         guilds: []
                     };
                 }
@@ -79,6 +83,18 @@ var PingBlacklist = (() => {
                     PluginUtilities.saveSettings(this.getName(), this.settings);
                     document.removeEventListener("contextmenu", this.contextMenuListener);
                  }
+                 
+                 
+                 addUser()
+                 {
+                	 // TODO: find which user you clicked on
+                	 
+                	 // TODO: see if user is in blacklist already
+                	 
+                	 // TODO: prompt user to add this user to blacklist
+                	 
+                	 // TODO: save userId, userName, and the current date
+                 }
 
 
                 /**
@@ -113,6 +129,7 @@ var PingBlacklist = (() => {
                     newItem.children[0].innerHTML = "Blacklist Pings";
                     
                     // TODO: attach the function to it
+                    newItem.addEventListener("click", this.addUser.bind(this));
                     
                     preItem.parentNode.insertBefore(newItem, preItem.nextSibling);
                  }
