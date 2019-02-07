@@ -101,13 +101,12 @@ var PingBlacklist = (() => {
                     $menuItems.each((i, item) => {
                     	$(item).find("span").each((j, child) => {
                     		if (child.innerHTML == "Add Note") {
-                    			preItem = child;
+                    			preItem = item;
                     		}
                     	});
                     });
                     // return if not a server
-                    if (preItem = null) return;
-                    
+                    if (preItem == null) return;
                  }
 
                  getSettingsPanel()
