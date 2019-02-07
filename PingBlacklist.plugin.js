@@ -86,7 +86,28 @@ var PingBlacklist = (() => {
                  */
                  onContextMenu()
                  {
-                    window.BdApi.showToast("Success!");
+                    // TODO: force people to use normalized classes
+                    //const $menu = $(".da-contextMenu")[0];
+                    const $menu = $(".da-contextMenu");
+                    if ($menu.length == 0) return;
+                	 
+                    // See if they right clicked on a user by looking for "Add Note" 
+                    
+                    let $menuItems = $menu.find("div");
+                    if ($menuItems.length == 0) return;
+                    
+                    let preItem = null;
+                    
+                    $menuItems.each((i, item) => {
+                    	$(item).find("span").each((j, child) => {
+                    		if (child.innerHTML == "Add Note") {
+                    			preItem = child;
+                    		}
+                    	});
+                    });
+                    // return if not a server
+                    if (preItem = null) return;
+                    
                  }
 
                  getSettingsPanel()
