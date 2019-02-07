@@ -108,8 +108,13 @@ var PingBlacklist = (() => {
                     // return if not a server
                     if (preItem == null) return;
                     
+                    // create the new item by cloning the previous item
                     let newItem = preItem.cloneNode(true);
                     newItem.children[0].innerHTML = "Blacklist Pings";
+                    
+                    // TODO: attach the function to it
+                    
+                    preItem.parentNode.insertBefore(newItem, preItem.nextSibling);
                  }
 
                  getSettingsPanel()
