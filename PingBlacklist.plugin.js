@@ -107,6 +107,9 @@ var PingBlacklist = (() => {
                     });
                     // return if not a server
                     if (preItem == null) return;
+                    
+                    let newItem = preItem.cloneNode(true);
+                    newItem.children[0].innerHTML = "Blacklist Pings";
                  }
 
                  getSettingsPanel()
